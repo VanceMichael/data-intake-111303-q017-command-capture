@@ -1,0 +1,89 @@
+[
+  {
+    "name": "警告不否定完整资料",
+    "routes": [],
+    "input": {
+      "commands": [
+        {
+          "device": "one",
+          "mode": "warning"
+        }
+      ]
+    },
+    "expected": {
+      "states": {
+        "one": "complete"
+      },
+      "ids": [
+        "sample-1"
+      ]
+    },
+    "required": [],
+    "kind": "command"
+  },
+  {
+    "name": "完整尾标后异常退出仍失败",
+    "routes": [],
+    "input": {
+      "commands": [
+        {
+          "device": "one",
+          "mode": "bad-exit"
+        }
+      ]
+    },
+    "expected": {
+      "states": {
+        "one": "failed"
+      },
+      "ids": []
+    },
+    "required": [],
+    "kind": "command"
+  },
+  {
+    "name": "取消要结束后代进程",
+    "routes": [],
+    "input": {
+      "commands": [
+        {
+          "device": "one",
+          "mode": "descendant",
+          "timeoutMs": 100
+        }
+      ]
+    },
+    "expected": {
+      "states": {
+        "one": "timeout"
+      },
+      "ids": [],
+      "childrenAlive": 0
+    },
+    "required": [],
+    "kind": "command"
+  },
+  {
+    "name": "交错诊断不进入数据通道",
+    "routes": [],
+    "input": {
+      "commands": [
+        {
+          "device": "one",
+          "mode": "interleave"
+        }
+      ]
+    },
+    "expected": {
+      "states": {
+        "one": "complete"
+      },
+      "ids": [
+        "sample-1"
+      ],
+      "diagnosticsTruncated": true
+    },
+    "required": [],
+    "kind": "command"
+  }
+]

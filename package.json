@@ -1,0 +1,18 @@
+{
+  "name": "command-capture",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.20.0 <23"
+  },
+  "scripts": {
+    "test": "node --test test/baseline.test.mjs test/device.test.mjs",
+    "build": "node scripts/check.mjs",
+    "inspect": "node src/inspect.mjs",
+    "source": "node src/source.mjs",
+    "acceptance": "node --test test/acceptance.test.mjs",
+    "demo": "node demo.mjs"
+  },
+  "dependencies": {}
+}
