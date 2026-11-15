@@ -1,6 +1,6 @@
 # 授权设备命令的输出通道采集与批次判定
 
-这是 command-capture 的 Node.js 项目。现有能力是本地资料源启动、来源检查和接口演练；资料接收工作流由单独的业务模块承载，当前版本不含该模块。
+这是 command-capture 的 Node.js 项目。能力包括本地资料源启动、来源检查、接口演练，以及资料接收工作流（`src/workflow.mjs`）：按白名单命令清单启动本地合成设备进程，stdout 成帧采集、stderr 独立限量诊断、逐运行判定与落盘。
 
 ## 环境
 
@@ -25,6 +25,8 @@ npm run source
 
 input.commands 只允许启动 fixtures/device.mjs，参数仅 mode；以 process.execPath 启动，禁用 shell。stdout 每行 JSON，最后一行为 {trailer:{count,sha256}}，摘要计算此前资料行原始字节。stderr 独立诊断，保存上限 4096 字节。记录 id、运行 uuid 和状态，输出 states/ids/childrenAlive/diagnosticsTruncated。
 
+白名单命令清单位于 `manifest/commands.json`，采集引擎的判定矩阵、背压、取消与运行身份语义见 `docs/command-capture.md`。
+
 完整来源约定、输出示例与状态判定见 `docs/source-contract.md`。fixtures 下的资料只用于本地演练，代表不同供方响应或门户状态，不是资料接收器的实现。
 
 ## 业务核对与短演示
@@ -34,6 +36,6 @@ npm run acceptance
 npm run demo
 ```
 
-业务模块接入后运行上述命令。当前版本运行会明确报告业务模块不存在，不把来源测试通过当作接收工作流已完成。acceptance 检查结果、落盘内容和实际来源访问；demo 从干净临时状态启动本地服务，实际执行前三种情况并完整输出结果及请求，不回放记录。每种情形应在 15 秒内完成，整次演示在 75 秒超时后报失败退出，预留在 90 秒内展示的余量。
+业务模块已接入：`npm run acceptance` 运行契约场景与采集引擎测试，`npm run demo` 从干净临时状态启动本地服务，实际执行前三种情况并完整输出结果及请求，不回放记录。每种情形应在 15 秒内完成，整次演示在 75 秒超时后报失败退出，预留在 90 秒内展示的余量。
 
 容器内执行基线检查：`docker run --rm --network none command-capture:local npm test`。工作流开发完成后执行 `docker run --rm --network none command-capture:local npm run demo`。容器内回环端口可用；正式核对过程不连接外部网络。

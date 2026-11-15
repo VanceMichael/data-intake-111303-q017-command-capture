@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "commands": [
+    {
+      "id": "device.export",
+      "description": "本地合成设备导出：stdout 为 ndjson-trailer-v1 成帧资料，stderr 为独立诊断",
+      "exec": "process.execPath",
+      "script": "fixtures/device.mjs",
+      "shell": false,
+      "framing": "ndjson-trailer-v1",
+      "args": [
+        {
+          "name": "mode",
+          "position": 0,
+          "type": "enum",
+          "values": ["warning", "bad-exit", "descendant", "interleave"],
+          "required": true
+        }
+      ],
+      "limits": {
+        "stderrMaxBytes": 4096,
+        "maxStdoutBytes": 1048576,
+        "maxRecords": 10000,
+        "defaultTimeoutMs": 10000,
+        "maxTimeoutMs": 60000,
+        "killGraceMs": 250,
+        "closeWaitMs": 2000
+      }
+    }
+  ]
+}

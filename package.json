@@ -11,7 +11,7 @@
     "build": "node scripts/check.mjs",
     "inspect": "node src/inspect.mjs",
     "source": "node src/source.mjs",
-    "acceptance": "node --test test/acceptance.test.mjs",
+    "acceptance": "node --test test/acceptance.test.mjs test/workflow.test.mjs",
     "demo": "node demo.mjs"
   },
   "dependencies": {}
