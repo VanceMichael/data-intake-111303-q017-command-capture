@@ -7,7 +7,7 @@
     "node": ">=22.20.0 <23"
   },
   "scripts": {
-    "test": "node --test test/baseline.test.mjs test/device.test.mjs",
+    "test": "node --test test/baseline.test.mjs test/device.test.mjs test/capture.test.mjs",
     "build": "node scripts/check.mjs",
     "inspect": "node src/inspect.mjs",
     "source": "node src/source.mjs",
